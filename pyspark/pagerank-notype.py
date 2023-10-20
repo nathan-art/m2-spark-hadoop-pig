@@ -48,6 +48,9 @@ def parseNeighbors(urls) :
 
 
 if __name__ == "__main__":
+
+    bucket = "gs://large_scale_data"
+
     if len(sys.argv) != 3:
         print("Usage: pagerank <file> <iterations>", file=sys.stderr)
         sys.exit(-1)
@@ -84,9 +87,16 @@ if __name__ == "__main__":
 
         # Re-calculates URL ranks based on neighbor contributions.
         ranks = contribs.reduceByKey(add).mapValues(lambda rank: rank * 0.85 + 0.15)
+    
+    #write and save pyspark results in a bucket 
+    ranks.coalesce(1).saveAsTextFile(bucket+"/pyspark_result_") 
+
+    print("Résultats pyspark écrits")
 
     # Collects all URL ranks and dump them to console.
-    for (link, rank) in ranks.collect():
-        print("%s has rank: %s." % (link, rank))
+    #for (link, rank) in ranks.collect():
+       # print("baba")
+        #print("%s has rank: %s." % (link, rank))
+
 
     spark.stop()
