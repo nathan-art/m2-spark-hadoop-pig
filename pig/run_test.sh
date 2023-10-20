@@ -7,7 +7,7 @@
 
 
 ## create the cluster
-gcloud dataproc clusters create cluster-a35a --enable-component-gateway --region europe-central2 --zone europe-central2-c --master-machine-type n1-standard-4 --master-boot-disk-size 500 --num-workers 2 --worker-machine-type n1-standard-4 --worker-boot-disk-size 500 --image-version 2.0-debian10 --project page-rank-spark
+gcloud dataproc clusters create cluster-a35a --enable-component-gateway --region europe-central2 --zone europe-central2-c --master-machine-type n1-standard-4 --master-boot-disk-size 500 --num-workers $1 --worker-machine-type n1-standard-4 --worker-boot-disk-size 500 --image-version 2.0-debian10 --project page-rank-spark
 
 ## copy data
 gsutil cp small_page_links.nt gs://page-rank-spark-bucket/
@@ -25,13 +25,10 @@ start=`date +%s`
 gcloud dataproc jobs submit pig --region europe-central2 --cluster cluster-a35a -f gs://page-rank-spark-bucket/dataproc.py
 
 end=`date +%s`
-echo Execution time was `expr $end - $start` seconds.
+echo Execution time with pig and $1 workers was `expr $end - $start` seconds. >> results.txt
 
 ## access results
-gsutil cat gs://page-rank-spark-bucket/out/pagerank_data_10/part-r-00000
+gsutil cat gs://page-rank-spark-bucket/out_pig/pagerank_data_10/part-r-00000
 
 ## delete cluster...
 gcloud dataproc clusters delete cluster-a35a --region europe-central2
-
-
-exit `$end - $start`
