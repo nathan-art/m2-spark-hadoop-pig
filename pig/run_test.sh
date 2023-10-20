@@ -7,17 +7,20 @@
 
 
 ## create the cluster
-gcloud dataproc clusters create cluster-a35a --enable-component-gateway --region europe-central2 --zone europe-central2-c --master-machine-type n1-standard-4 --master-boot-disk-size 500 --num-workers $1 --worker-machine-type n1-standard-4 --worker-boot-disk-size 500 --image-version 2.0-debian10 --project page-rank-spark
+gcloud dataproc clusters create cluster-a35a --enable-component-gateway --region europe-central2 --zone europe-central2-b --master-machine-type n1-standard-4 --master-boot-disk-size 500 --num-workers $1 --worker-machine-type n1-standard-4 --worker-boot-disk-size 500 --image-version 2.0-debian10 --project page-rank-spark
 
 ## copy data
-gsutil cp small_page_links.nt gs://page-rank-spark-bucket/
+#gsutil cp small_page_links.nt gs://page-rank-spark-bucket/
 
 ## copy pig code
-gsutil cp dataproc.py gs://page-rank-spark-bucket/
+#gsutil cp dataproc.py gs://page-rank-spark-bucket/
 
 ## Clean out directory
 gsutil rm -rf gs://page-rank-spark-bucket/out
 
+## Clean results with pig execution
+#rm ../results.txt
+# TODO
 
 start=`date +%s`
 ## run
