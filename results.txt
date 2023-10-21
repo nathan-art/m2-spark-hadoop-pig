@@ -1,9 +1,1 @@
-Execution time with pig and 2 workers was 39 seconds.
-Execution time with pig and 4 workers was 192 seconds.
-Execution time with pig and 6 workers was 1 seconds.
-Execution time with pig and 2 workers was 46 seconds.
-Execution time with pig and 2 workers was 45 seconds.
-Execution time with pig and 2 workers was 45 seconds.
-Execution time with pig and 2 workers was 45 seconds.
-Execution time with pig and 2 workers was 49 seconds.
-Execution time with pig and 2 workers was 195 seconds.
+Execution time with pig and 2 workers was 198 seconds.
