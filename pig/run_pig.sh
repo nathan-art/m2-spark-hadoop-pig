@@ -22,7 +22,7 @@ end=`date +%s`
 echo Execution time with pig and $1 workers was `expr $end - $start` seconds. >> results.txt
 
 ## access results
-gsutil cat gs://page-rank-spark-bucket/out_pig/pagerank_data_10/part-r-00000
+gsutil cat gs://page-rank-spark-bucket/out/pagerank_data_simple/part-r-00000 >> pig_small_page_rank.txt
 
 ## delete cluster...
 gcloud dataproc clusters delete cluster-a35a --region europe-central2
