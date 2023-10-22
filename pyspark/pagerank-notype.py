@@ -27,6 +27,10 @@ import sys
 from operator import add
 from typing import Iterable, Tuple
 
+import time
+import json
+from subprocess import call
+
 from pyspark.resultiterable import ResultIterable
 from pyspark.sql import SparkSession
 
@@ -49,15 +53,18 @@ def parseNeighbors(urls) :
 
 if __name__ == "__main__":
 
-    bucket = "gs://large_scale_data"
 
-    if len(sys.argv) != 3:
-        print("Usage: pagerank <file> <iterations>", file=sys.stderr)
+    if len(sys.argv) != 4:
+        print("Usage: pagerank <file> <iterations> <num_workers>", file=sys.stderr)
         sys.exit(-1)
 
     print("WARN: This is a naive implementation of PageRank and is given as an example!\n" +
           "Please refer to PageRank implementation provided by graphx",
           file=sys.stderr)
+
+    statistics_data = {}
+    start_program_timestamp = time.time()
+    bucket = "gs://large_scale_data"
 
     # Initialize the spark context.
     spark = SparkSession\
@@ -100,3 +107,33 @@ if __name__ == "__main__":
 
 
     spark.stop()
+    finish_program_timestamp = time.time()
+    
+    total_time_elapsed = finish_program_timestamp - start_program_timestamp
+
+    #for (link, rank) in ranks.collect():
+    #    print("%s has rank: %s." % (link, rank))
+
+    statistics_data['start_program_timestamp'] = start_program_timestamp
+    statistics_data['finish_program_timestamp'] = finish_program_timestamp
+    statistics_data['total_time_elapsed'] = finish_program_timestamp - start_program_timestamp
+
+    #for (link, rank) in ranks.collect():
+    #    print("%s has rank: %s." % (link, rank))
+
+    statistics_filename = 'pyspark_statistics_num_workers_'+sys.argv[3]+'.json'
+    with open(statistics_filename, 'w+') as outfile:
+        outfile.write(json.dumps(statistics_data))
+
+    '''print("start_program_timestamp : "+str(start_program_timestamp))
+    print("finish_program_timestamp : "+str(finish_program_timestamp))
+    print("total_time_elapsed : "+str(total_time_elapsed))
+
+    statistics_filename = 'pyspark_statistics.txt'
+    with open(statistics_filename, 'w+') as outfile:
+        outfile.write("start_program_timestamp : "+start_program_timestamp)
+        outfile.write("finish_program_timestamp : "+finish_program_timestamp)
+        outfile.write("total_time_elapsed : "+total_time_elapsed)'''
+
+
+    call(["gsutil" ,"cp",statistics_filename ,bucket])
