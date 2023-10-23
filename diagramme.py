@@ -1,6 +1,6 @@
 import matplotlib.pyplot as plt
 
-with open ('results.txt', 'r') as fichier 
+with open ('results.txt', 'r') as fichier :
      temps_execution=[]
      nombre_workers=[]
      for ligne in fichier:
