@@ -35,14 +35,14 @@ STORE new_pagerank
     USING PigStorage('\t');
 """)
 
-params = { 'd': '0.5', 'docs_in': 'gs://large_scale_data/out_pig/pagerank_data_simple' }
+params = { 'd': '0.85', 'docs_in': 'gs://page-rank-spark-bucket/out/pagerank_data_simple' }
 
 stats = INIT.bind(params).runSingle()
 if not stats.isSuccessful():
       raise 'failed initialization'
 
 for i in range(3):
-   out = "gs://large_scale_data/out_pig/pagerank_data_" + str(i + 1)
+   out = "gs://page-rank-spark-bucket/out/pagerank_data_" + str(i + 1)
    params["docs_out"] = out
    Pig.fs("rmr " + out)
    stats = UPDATE.bind(params).runSingle()
