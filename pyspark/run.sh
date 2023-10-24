@@ -1,18 +1,16 @@
-#!/bin/bash
-
-## En local ->
-## pig -x local -
-
-## en dataproc...
+## Pour 2 workers
 
 ## copy data
 gsutil cp small_page_links.nt gs://large_scale_data/
+
+#pour utiliser les grosses données : 
+# gsutil cp gs://public_lddm_data/page_links_en.nt.bz2 gs://large_scale_data/
 
 ## copy pig code
 gsutil cp pagerank-notype.py gs://large_scale_data/
 
 ## Clean out directory
-gsutil rm -rf gs://large_scale_data/out
+gsutil rm -rf gs://large_scale_data/pyspark_result_
 
 
 ## create the cluster
@@ -21,7 +19,7 @@ gcloud dataproc clusters create cluster-a35a --enable-component-gateway --region
 
 ## run
 ## (suppose that out directory is empty !!)
-gcloud dataproc jobs submit pyspark --region europe-central2 --cluster cluster-a35a gs://large_scale_data/pagerank-notype.py  -- gs://large_scale_data/small_page_links.nt 3
+gcloud dataproc jobs submit pyspark --region europe-central2 --cluster cluster-a35a gs://large_scale_data/pagerank-notype.py  -- gs://large_scale_data/small_page_links.nt 3 2
 
 ## access results
 # gsutil cat gs://large_scale_data/out/pagerank_data_10/part-r-00000
