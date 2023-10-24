@@ -62,8 +62,7 @@ if __name__ == "__main__":
           "Please refer to PageRank implementation provided by graphx",
           file=sys.stderr)
 
-    statistics_data = {}
-    start_program_timestamp = time.time()
+    statistics_time = {}
     bucket = "gs://large_scale_data"
 
     # Initialize the spark context.
@@ -71,6 +70,9 @@ if __name__ == "__main__":
         .builder\
         .appName("PythonPageRank")\
         .getOrCreate()
+
+    start_program_timestamp = time.time()
+
 
     # Loads in input file. It should be in format of:
     #     URL         neighbor URL
@@ -85,8 +87,14 @@ if __name__ == "__main__":
     # Loads all URLs with other URL(s) link to from input file and initialize ranks of them to one.
     ranks = links.map(lambda url_neighbors: (url_neighbors[0], 1.0))
 
+    # partitioning of links
+    links = links.partitionBy(numPartitions = None)
+
     # Calculates and updates URL ranks continuously using PageRank algorithm.
     for iteration in range(int(sys.argv[2])):
+        # partitioning of ranks
+        ranks = ranks.partitionBy(numPartitions = None)
+        
         # Calculates URL contributions to the rank of other URLs.
         contribs = links.join(ranks).flatMap(lambda url_urls_rank: computeContribs(
             url_urls_rank[1][0], url_urls_rank[1][1]  # type: ignore[arg-type]
@@ -100,11 +108,6 @@ if __name__ == "__main__":
 
     print("Résultats pyspark écrits")
 
-    # Collects all URL ranks and dump them to console.
-    #for (link, rank) in ranks.collect():
-       # print("baba")
-        #print("%s has rank: %s." % (link, rank))
-
 
     spark.stop()
     finish_program_timestamp = time.time()
@@ -114,26 +117,16 @@ if __name__ == "__main__":
     #for (link, rank) in ranks.collect():
     #    print("%s has rank: %s." % (link, rank))
 
-    statistics_data['start_program_timestamp'] = start_program_timestamp
-    statistics_data['finish_program_timestamp'] = finish_program_timestamp
-    statistics_data['total_time_elapsed'] = finish_program_timestamp - start_program_timestamp
+    statistics_time['start_program_timestamp'] = start_program_timestamp
+    statistics_time['finish_program_timestamp'] = finish_program_timestamp
+    statistics_time['total_time_elapsed'] = finish_program_timestamp - start_program_timestamp
 
     #for (link, rank) in ranks.collect():
     #    print("%s has rank: %s." % (link, rank))
 
     statistics_filename = 'pyspark_statistics_num_workers_'+sys.argv[3]+'.json'
+
     with open(statistics_filename, 'w+') as outfile:
-        outfile.write(json.dumps(statistics_data))
-
-    '''print("start_program_timestamp : "+str(start_program_timestamp))
-    print("finish_program_timestamp : "+str(finish_program_timestamp))
-    print("total_time_elapsed : "+str(total_time_elapsed))
-
-    statistics_filename = 'pyspark_statistics.txt'
-    with open(statistics_filename, 'w+') as outfile:
-        outfile.write("start_program_timestamp : "+start_program_timestamp)
-        outfile.write("finish_program_timestamp : "+finish_program_timestamp)
-        outfile.write("total_time_elapsed : "+total_time_elapsed)'''
-
+        outfile.write(json.dumps(statistics_time))
 
     call(["gsutil" ,"cp",statistics_filename ,bucket])
