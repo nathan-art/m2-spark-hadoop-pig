@@ -12,8 +12,7 @@ with open ('results.txt', 'r') as fichier :
           temps_execution.append(temps)
 
 
-temps_execution2=[27.8, 38.13, 43.51]
-
+temps_execution2=[43.51, 38.13, 27.8]
 
 plt.plot(nombre_workers, temps_execution, marker='o',label='pig')
 plt.plot(nombre_workers, temps_execution2, marker='x',label='spark')
