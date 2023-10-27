@@ -6,7 +6,7 @@ os.system("rm '%s'" % (results_file_name))
 pr_results_file_name = "pig_small_page_rank.txt"
 os.system("rm '%s'" % (pr_results_file_name))
 
-args = [2,4] # add 6 later
+args = [4,5]
 script = "run_pig.sh"
 for nb_worker in args:
     print('### EXECUTION WITH ', nb_worker, 'WORKERS ###')

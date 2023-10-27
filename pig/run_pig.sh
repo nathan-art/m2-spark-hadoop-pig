@@ -13,16 +13,16 @@ gcloud dataproc clusters create cluster-a35a --enable-component-gateway --region
 gsutil rm -rf gs://page-rank-spark-bucket/out
 
 
-start=`date +%s`
 ## run
 ## (suppose that out directory is empty !!)
 gcloud dataproc jobs submit pig --region europe-central2 --cluster cluster-a35a -f gs://page-rank-spark-bucket/dataproc.py
 
-end=`date +%s`
-echo Execution time with pig and $1 workers was `expr $end - $start` seconds. >> results.txt
+# access time execution result and add the number of workers for this execution
+#gsutil cat gs://page-rank-spark-bucket/time_results.txt >> time_results.txt
+#echo "(with $1 workers)" >> time_results.txt
 
 ## access results
-gsutil cat gs://page-rank-spark-bucket/out/pagerank_data_simple/part-r-00000 >> pig_small_page_rank.txt
+#gsutil cat gs://page-rank-spark-bucket/out/pagerank_data_simple/part-r-00000 >> pig_small_page_rank.txt
 
 ## delete cluster...
 gcloud dataproc clusters delete cluster-a35a --region europe-central2

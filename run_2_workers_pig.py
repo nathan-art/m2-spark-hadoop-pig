@@ -1,7 +1,7 @@
 import os
 
 results_file_name = "results.txt"
-os.system("rm '%s'" % (results_file_name))
+#os.system("rm '%s'" % (results_file_name))
 
 arg_test = 2
 script = "run_pig.sh"
