@@ -1,0 +1,2 @@
+Execution time with pig was 155.065000057 seconds. (with 2 workers)
+Execution time with pig was 150.873999834 seconds. (with 2 workers)

@@ -18,8 +18,11 @@ gsutil rm -rf gs://page-rank-spark-bucket/out
 gcloud dataproc jobs submit pig --region europe-central2 --cluster cluster-a35a -f gs://page-rank-spark-bucket/dataproc.py
 
 # access time execution result and add the number of workers for this execution
-#gsutil cat gs://page-rank-spark-bucket/time_results.txt >> time_results.txt
-#echo "(with $1 workers)" >> time_results.txt
+gsutil cat gs://page-rank-spark-bucket/exec_time.txt >> time_results.txt
+
+# Use sed to add the text at the end of the last line of the file
+sed -i "\$s/$/ (with $1 workers)/" time_results.txt
+echo "" >> time_results.txt
 
 ## access results
 #gsutil cat gs://page-rank-spark-bucket/out/pagerank_data_simple/part-r-00000 >> pig_small_page_rank.txt

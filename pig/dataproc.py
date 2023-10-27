@@ -40,6 +40,7 @@ STORE new_pagerank
 
 params = { 'd': '0.85', 'docs_in': 'gs://page-rank-spark-bucket/out/pagerank_data_simple' }
 
+# Beginning of the computation
 start = time.time()
 
 stats = INIT.bind(params).runSingle()
@@ -56,6 +57,7 @@ for i in range(nbIterations):
       raise 'failed'
    params["docs_in"] = out
 
+# End of the computation to obtain the page rank of the pages in the file
 end = time.time()
 
 SORT = Pig.compile("""
