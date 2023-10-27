@@ -3,9 +3,11 @@
 ## create the cluster
 gcloud dataproc clusters create cluster-a35a --enable-component-gateway --region europe-central2 --zone europe-central2-b --master-machine-type n1-standard-4 --master-boot-disk-size 500 --num-workers $1 --worker-machine-type n1-standard-4 --worker-boot-disk-size 500 --image-version 2.0-debian10 --project page-rank-spark
 
-# Normally, the bucket used has already this 2 files.
-## copy data
+# Normally, the bucket used has already this 3 files.
+## copy small data
 #gsutil cp small_page_links.nt gs://page-rank-spark-bucket/
+## copy big data
+#gsutil cp gs://public_lddm_data/page_links_en.nt.bz2 gs://page-rank-spark-bucket/
 ## copy pig code
 #gsutil cp dataproc.py gs://page-rank-spark-bucket/
 
