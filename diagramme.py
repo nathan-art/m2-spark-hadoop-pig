@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 
 
-with open ('results.txt', 'r') as fichier :
+with open ('./pig/results.txt', 'r') as fichier :
      temps_execution=[]
      nombre_workers=[]
      for ligne in fichier:
@@ -12,7 +12,7 @@ with open ('results.txt', 'r') as fichier :
           temps_execution.append(temps)
 
 
-temps_execution2=[43.51, 38.13, 27.8]
+temps_execution2=[31.91, 23.35, 22.53]
 
 plt.plot(nombre_workers, temps_execution, marker='o',label='pig')
 plt.plot(nombre_workers, temps_execution2, marker='x',label='spark')
