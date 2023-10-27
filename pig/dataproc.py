@@ -67,21 +67,21 @@ A = LOAD '$docs_in'
 
 sorted_pagerank = ORDER A BY pagerank DESC;
 
-STORE sorted_pagerank 
+top_5_records = LIMIT sorted_pagerank 5;
+
+STORE top_5_records 
     INTO '$docs_out' 
     USING PigStorage('\t');
 """)
 
-# We sort the last page rank in the bucket after the execution
-out = "gs://page-rank-spark-bucket/out/pagerank_data_" + str(nbIterations) + "_sorted"
+# We sort the last page rank in the bucket after the execution and save the top 5 page ranks
+out = "gs://page-rank-spark-bucket/top_5_page_rank"
 parameters = {'docs_in': params["docs_in"], 'docs_out' : out}
 Pig.fs("rmr " + out)
 stats = SORT.bind(parameters).runSingle()
 if not stats.isSuccessful():
     raise 'failed sorted result'
 
-# We delete the useless page rank file not sorted
-Pig.fs("rmr " + params["docs_in"])
 
 # We create a file in the bucket to store the execution time of the comput of the page rank
 result = ("Execution time with pig was " + str(end - start) + " seconds.")

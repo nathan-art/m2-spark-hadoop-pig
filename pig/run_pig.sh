@@ -24,8 +24,8 @@ gsutil cat gs://page-rank-spark-bucket/exec_time.txt >> time_results.txt
 sed -i "\$s/$/ (with $1 workers)/" time_results.txt
 echo "" >> time_results.txt
 
-## access results
-#gsutil cat gs://page-rank-spark-bucket/out/pagerank_data_simple/part-r-00000 >> pig_small_page_rank.txt
+## Save top page rank
+gsutil cat gs://page-rank-spark-bucket/top_5_page_rank/part-r-00000 >> pig_top_page_rank.txt
 
 ## delete cluster...
 gcloud dataproc clusters delete cluster-a35a --region europe-central2
