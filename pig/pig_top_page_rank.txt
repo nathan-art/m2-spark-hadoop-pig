@@ -1,0 +1,5 @@
+<http://dbpedia.org/resource/Anatolia> 0.2983564
+<http://dbpedia.org/resource/Anglican_Communion> 0.29340225
+<http://dbpedia.org/resource/Ada_Lovelace> 0.29304215
+<http://dbpedia.org/resource/Abbreviation> 0.28702918
+<http://dbpedia.org/resource/Algorithm> 0.28316087
