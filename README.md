@@ -7,7 +7,7 @@ Le but de cette expérience est de comparer les performances de l'algorithme pag
 
 Ici nous allons calculer le page rank avec plusieurs configurations de cluster --> 3 noeuds, 4 noeuds, 5 noeuds.
 
-Premièrement, nous présentons les configurations utilisées pour réaliser cette expérience [Configuration et execution](#configuration), ensuite nous comparons les temps d'exécution du pagerank avec des diagrammes à ligne brisée  [Pig VS Pyspark](#PgVSps). Finalement, nous illustrons les meilleurs pagerank calculés [ Les top 5 Résultats des pageranks :](#top5). 
+Premièrement, nous présentons les configurations utilisées pour réaliser cette expérience [Configuration et execution](#configuration). Ensuite nous comparons les temps d'exécution du pagerank avec des diagrammes à ligne brisée  [Pig VS Pyspark](#PgVSps). Finalement, nous illustrons les meilleurs pagerank calculés [ Les top 5 Résultats des pageranks :](#top5). 
 
 
 <a id="configuration" style="color: white; ">
@@ -36,7 +36,7 @@ Le fichier [dataproc.py](./pig/dataproc.py) est celui qui va exécuter le code p
 <a id="PgVSps" style="color: white; ">
 
 ## Pig VS Pyspark </a>
-Ci-après se trouve un diagramme à ligne brisée illustrant la comparaison des temps d'exécution entre les implémentations pagerank, pour chaque configuration de cluster utilisée:
+Comparaison des temps d'exécution entre pig et pyspark de l'algorithme pagerank, pour chaque configuration de cluster utilisée :
 
 
 ![Texte alternatif](./diagramme.jpeg)
@@ -48,7 +48,7 @@ Sur ce graphique nous pouvons constater les points suivants:
 - Faire passer le nombre de workers de 3 à 4 diminue fortement le temps d'exécution en Pig et Pyspark, surtout en comparaison du passage de 4 à 5 workers
 <a id="top5" style="color: white; ">
 
-## Les top 5 Résultats des pageranks: </a>
+## Les top 5 Résultats des pageranks </a>
 Suite à l'exécution des clusters, nous avons déterminé que l'entité avec le meilleur pagerank est http://dbpedia.org/resource/Living_people, avec une valeur de pagerank de 36,794.33 (avec pyspark) et 33320.508 (avec Pig) . 
 
 Voici ci-dessous le top 5 des entités ayant, en 3 itérations et avec l'implémentation pyspark, le meilleur pagerank :
