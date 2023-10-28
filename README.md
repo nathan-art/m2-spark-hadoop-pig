@@ -11,7 +11,7 @@ Configuration utilisée pour réaliser cette expérience : [Configuration et exe
 Comparaison des temps d'exécution du pagerank avec un diagramme à ligne brisée : [Pig VS PySpark](#PgVSps).  
 Les meilleurs pagerank calculés : [ Les top 5 Résultats des pageranks](#top5).  
 
-<a id="configuration" style="color: white; ">
+<a id="configuration" style="color: black; ">
 
 ## Configuration et execution </a>
 - Espace disque machine attribuée (maître/workers) : 500Mo d'espace disque
@@ -34,7 +34,7 @@ Le fichier [run_pig.sh](./pig/run_pig.sh) permet de lancer le cluster qui va ex�
 Le fichier [dataproc.py](./pig/dataproc.py) est celui qui va exécuter le code Pig afin de calculer le page rank. On réalise 3 itérations pour le calcul et il crée un fichier texte afin de sauvegarder le temps d'exécution dans le bucket. On récupérera ensuite cette ligne et on l'insérera à la fin de [time_results.txt](./pig/time_results.txt) pour avoir le temps d'exécution de chacune des exécutions sur le projet. À la fin du calcul du page rank, on récupére les 5 premiers page rank dans le bucket que l'on va récupérer pour les mettre dans le projet dans le fichier [pig_top_page_rank.txt](./pig/pig_top_page_rank.txt).
 
 
-<a id="PgVSps" style="color: white; ">
+<a id="PgVSps" style="color: black; ">
 
 ## Pig VS PySpark </a>
 Comparaison des temps d'exécution entre Pig et PySpark de l'algorithme page rank, pour chaque configuration de cluster utilisée :
@@ -47,7 +47,7 @@ Sur ce graphique nous pouvons constater les points suivants:
 - Pour Pig et PySpark, plus il y a de workers et plus le temps d'exécution du cluster est court
 - Pour le même nombre de workers, l'exécution en PySpark est plus rapide que celle en Pig
 - Faire passer le nombre de workers de 3 à 4 diminue fortement le temps d'exécution en Pig et PySpark, surtout en comparaison du passage de 4 à 5 workers
-<a id="top5" style="color: white; ">
+<a id="top5" style="color: black; ">
 
 ## Les top 5 Résultats des pageranks </a>
 Suite à l'exécution des clusters, nous avons déterminé que l'entité avec le meilleur pagerank est http://dbpedia.org/resource/Living_people, avec une valeur de pagerank de 36,794.33 (avec PySpark) et 33320.508 (avec Pig) . 
