@@ -5,12 +5,11 @@ Membres de groupes : Nathan DESHAYES, Nihel BELHADJ KACEM et Mathis EMERIAU
 ## Description du projet
 Le but de cette expérience c'est de comparer les performances de l'algorithme pagerank, entre une implémentation Pig et une implémentation PySpark.
 
-comparaison des performances sur pagerank, entre une implantation Pig et une implantation PySpark (Comme dans la video NDSI 2012). Je veux plusieurs configurations de cluster --> 3 noeuds, 4 noeuds, 5 noeuds.
+Ici nous allons tester avec plusieurs configurations de cluster --> 3 noeuds, 4 noeuds, 5 noeuds.
 
 Les données sont dans le bucket google cloud : gs:///public_lddm_data/
 
 Les code sources sont dispos à: https://github.com/momo54/large_scale_data_management
-
 
 
 ## Configuration et execution
@@ -26,11 +25,12 @@ Le fichier "pagerank_notype.py" calcule 3 itérations de pagerank pour chaque li
 Le fichier "récupèreTop5.py" prend en entrée les résultats de pagerank d'une exécution d'un cluster puis affiche en console les 5 meilleurs valeurs de pagerank.
 
 ### Partie Pig :
-Le fichier [run_pig.sh](./pig/run_pig.sh) permet d'exécuter le pagerank sur un cluster à 4 workers. Pour le faire fonctionner et changer le nombre de workers, il faut changer le paramètre "num-workers" dans la commande de création du cluster (ligne 16) et changer les noms du paramètre "project" et du bucket pour mettre les siens à la place.
 
-Le fichier "[dataproc.py](./pig/run_pig.sh)" calcule 3 itérations de pagerank pour chaque ligne, sauvegarde les résultats sur le bucket et calcule le temps d'exécution total du pagerank avant de l'afficher en console.
+Le fichier [run_all_pig.py](./pig/run_all_pig.py) permet de lancer les exécutions afin de varier le nombre de noeuds (workers) à chaque fois. Il appelle à chaque exécution [run_pig.sh](./pig/run_pig.sh). Si vous voulez tester de ne lancer qu'une exécution avec 2 noeuds, il y a : [run_2_workers_pig.py](./pig/run_2_workers_pig.py).
 
-Le fichier "[pig_top_page_rank.txt](./pig/pig_top_page_rank.txt)" prend en entrée les résultats de pagerank d'une exécution d'un cluster puis affiche en console les 15 meilleurs valeurs de pagerank.
+Le fichier [run_pig.sh](./pig/run_pig.sh) permet d'exécuter le pagerank avec pig. C'est ici qu'il faut indiquer votre nom de projet, et votre bucket pour l'exécution. Les lignes de commandes qui permettent de copier les fichiers nécessaires à l'exécution sont en commentaires car on suppose que les fichiers ont déjà été copiés dans le bucket. Veillez à les remettre si nécessaire.
+
+Le fichier [dataproc.py](./pig/dataproc.py) est celui qui va exécuter le code pig afin de calculer le page rank. On réalise 3 itérations pour le calcul et il crée un fichier texte afin de sauvegarder le temps d'exécution dans le bucket. On récupérera ensuite cette ligne et on l'insérera à la fin de [time_results.txt](./pig/time_results.txt) pour avoir le temps d'éxécution de chacune des exécutions sur le projet. À la fin du calcul du page rank, on récupére les 5 premiers page rank dans le bucket que l'on va récupérer pour les mettre dans le projet dans le fichier [pig_top_page_rank.txt](./pig/pig_top_page_rank.txt).
 
 
 ## Temps d'exécution
