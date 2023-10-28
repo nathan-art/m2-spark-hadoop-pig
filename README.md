@@ -7,8 +7,9 @@ Le but de cette expérience est de comparer les performances de l'algorithme pag
 
 Ici nous allons calculer le page rank avec plusieurs configurations de cluster --> 3 noeuds, 4 noeuds, 5 noeuds.
 
-Premièrement, nous présentons les configurations utilisées pour réaliser cette expérience [Configuration et execution](#configuration). Ensuite nous comparons les temps d'exécution du pagerank avec des diagrammes à ligne brisée  [Pig VS Pyspark](#PgVSps). Finalement, nous illustrons les meilleurs pagerank calculés [ Les top 5 Résultats des pageranks :](#top5). 
-
+Configuration utilisée pour réaliser cette expérience : [Configuration et execution](#configuration).  
+Comparaison des temps d'exécution du pagerank avec un diagramme à ligne brisée : [Pig VS Pyspark](#PgVSps).  
+Les meilleurs pagerank calculés : [ Les top 5 Résultats des pageranks](#top5).  
 
 <a id="configuration" style="color: white; ">
 
@@ -36,7 +37,7 @@ Le fichier [dataproc.py](./pig/dataproc.py) est celui qui va exécuter le code p
 <a id="PgVSps" style="color: white; ">
 
 ## Pig VS Pyspark </a>
-Comparaison des temps d'exécution entre pig et pyspark de l'algorithme pagerank, pour chaque configuration de cluster utilisée :
+Comparaison des temps d'exécution entre pig et pyspark de l'algorithme page rank, pour chaque configuration de cluster utilisée :
 
 
 ![Texte alternatif](./diagramme.jpeg)
