@@ -5,7 +5,7 @@ Membres de groupes : Nathan DESHAYES, Nihel BELHADJ KACEM et Mathis EMERIAU
 ## Description du projet
 Le but de cette expérience c'est de comparer les performances de l'algorithme pagerank, entre une implémentation Pig et une implémentation PySpark.
 
-Ici nous allons tester avec plusieurs configurations de cluster --> 3 noeuds, 4 noeuds, 5 noeuds.
+Ici nous allons calculer le page rank avec plusieurs configurations de cluster --> 3 noeuds, 4 noeuds, 5 noeuds.
 
 Premièrement, nous présentons les configurations utilisées pour réaliser cette expérience [Configuration et execution](#configuration), ensuite nous comparons les temps d'exécution du pagerank avec des diagrammes à ligne brisée  [Pig VS Pyspark](#PgVSps). Finalement, nous illustrons les meilleurs pagerank computés [P Les top 5 Résultats des pageranks:](#top5). 
 
@@ -47,23 +47,21 @@ Le fichier [dataproc.py](./pig/dataproc.py) est celui qui va exécuter le code p
 <a id="PgVSps" style="color: black; ">
 
 ## Pig VS Pyspark </a>
-Ci-après suit un diagramme à ligne brisée illustrant la comparaison des temps d'exécution entre les implémentations pagerank, pour chaque configuration de cluster utilisée:
+Ci-après se trouve un diagramme à ligne brisée illustrant la comparaison des temps d'exécution entre les implémentations pagerank, pour chaque configuration de cluster utilisée:
 
 
 ![Texte alternatif](./diagramme.jpeg)
 
 Sur ce graphique nous pouvons constater les points suivants:
 
-- Pig est l'implémentation la moins performante avec peu des noeuds, ce qui pourrait s'expliquer par les écritures des résultats intermediaries sur le disque avec des ressources limitées.
-- PySpark avec du partitionnement est l'implémentation qui performe le mieux en moyen, néanmoins cette implémentation atteint un seuil à 4 noeuds.
-- Pig bénéficie le plus de l'augmentation du nombre de noeuds, ce qui devient plus évident dans le range de 4 à 5 noeuds. Nous pouvons apprécier que les implémentations sur PySpark atteignent un seuil dans leurs temps d'exécution dans cette range de 4 à 5 noeuds, tandis que le temps d'exécution continue à diminuer pour Pig.
-- L'implémentation sur Pig rattrape l'implémentation sur PySpark Basic pour la configuration à 5 noeuds.
+- Pig est l'implémentation la moins performante avec peu de noeuds, ce qui pourrait s'expliquer par les écritures des résultats intermédiaires sur le disque avec des ressources limitées.
+- Pig bénéficie le plus de l'augmentation du nombre de noeuds, ce qui devient plus évident entre 4 et 5 noeuds. Nous pouvons voir que les implémentations sur PySpark atteignent un seuil dans ses temps d'exécution entre 4 et 5 noeuds, tandis que le temps d'exécution continue à diminuer pour Pig.
 - Avec des ressources limitées (2 noeuds), Pyspark ne semble pas bénéficier d'une amélioration en raison du partionnement.
-Les meilleurs pagerank computés dans le cadre de ces exécutions sont présentés dans la section suivante.
+Les meilleurs page rank calculés dans le cadre de ces exécutions sont présentés dans la section suivante.
 <a id="top5" style="color: black; ">
 
 ## Les top 5 Résultats des pageranks: </a>
-Nous avons obtenu que l'entité avec le meilleur pagerank c'est l'uri http://dbpedia.org/resource/Living_people, avec un pagerank de 36,794.33. On présente ci-après le top 5 des uris ayant le meilleur pagerank issus de l'implémentation Pyspark, avec 3 itérations de l'algorithme pagerank:
+Nous avons obtenu que l'entité avec le meilleur pagerank c'est l'uri http://dbpedia.org/resource/Living_people, avec un pagerank de 36,794.33. On présente ci-après le top 5 des uris ayant le meilleur pagerank issus de l'implémentation Pyspark, avec 3 itérations de l'algorithme page rank:
 | Rank| URL | PageRank |
 | :----: | :---: | :---: |
 | 🥇 | <http://dbpedia.org/resource/Living_people>  | 36794.33146754654 |
@@ -72,8 +70,8 @@ Nous avons obtenu que l'entité avec le meilleur pagerank c'est l'uri http://dbp
 | 4 | <http://dbpedia.org/resource/List_of_sovereign_states> | 5195.347361862185 |
 | 5 | <http://dbpedia.org/resource/United_Kingdom> | 4923.821309315207 |
 
-Les liens produits par l'implémentation PIG restent inchangés, toutefois, les valeurs du PageRank diffèrent. 
-Nons  pouvons l'illustrer dans un tableau similaire à celui précédent, mais en incluant les résultats du PageRank obtenus via l'implémentation PIG:
+Les valeurs du PageRank diffèrent un peu cependant. 
+Nous pouvons l'illustrer dans un tableau similaire à celui précédent, mais en incluant les résultats du PageRank obtenus via l'implémentation PIG:
 
  | Rank | URL | PageRank |
 | :----: | :---: | :---: |
@@ -83,3 +81,4 @@ Nons  pouvons l'illustrer dans un tableau similaire à celui précédent, mais e
 | 4  | ... | 5373.2163 |
 | 5  | ... | 5044.9463 |
 
+Cette différence se trouve sûrement au niveau de l'algorithme de pig lorsque les jointures sont réalisées. Nous n'avons pas réussi à trouver une nouvelle implémentation pour que les résultats entre pig et pyspark soient les mêmes.
