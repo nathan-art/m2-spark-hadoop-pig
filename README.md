@@ -5,7 +5,7 @@ Membres du groupe : Nathan DESHAYES, Nihel BELHADJ KACEM et Mathis EMERIAU
 ## Description du projet
 Le but de cette expérience est de comparer les performances de l'algorithme pagerank entre une implémentation Pig et une implémentation PySpark.
 
-Ici nous allons calculer le page rank avec plusieurs configurations de cluster --> 3 noeuds, 4 noeuds, 5 noeuds.
+Ici nous allons calculer le pagerank avec plusieurs configurations de cluster --> 3 noeuds, 4 noeuds, 5 noeuds.
 
 Configuration utilisée pour réaliser cette expérience : [Configuration et execution](#configuration).  
 Comparaison des temps d'exécution du pagerank avec un diagramme à ligne brisée : [Pig VS PySpark](#PgVSps).  
@@ -37,7 +37,7 @@ Le fichier [dataproc.py](./pig/dataproc.py) est celui qui va exécuter le code P
 <a id="PgVSps" style="color: black; ">
 
 ## Pig VS PySpark </a>
-Comparaison des temps d'exécution entre Pig et PySpark de l'algorithme page rank, pour chaque configuration de cluster utilisée :
+Comparaison des temps d'exécution entre Pig et PySpark de l'algorithme pagerank, pour chaque configuration de cluster utilisée :
 
 
 ![Texte alternatif](./diagramme.jpeg)
@@ -61,7 +61,7 @@ Voici ci-dessous le top 5 des entités ayant, en 3 itérations et avec l'implém
 | 4 | <http://dbpedia.org/resource/List_of_sovereign_states> | 5195.347361862185 |
 | 5 | <http://dbpedia.org/resource/United_Kingdom> | 4923.821309315207 |
 
-Cependant, en utilisant l'implémentation Pig, les valeurs du PageRank sont différentes, ainsi que les entités placées en 4ème et 5ème positions :
+Cependant, en utilisant l'implémentation Pig, les valeurs du pagerank sont différentes, ainsi que les entités placées en 4ème et 5ème positions :
 
  | Rank | URL | PageRank |
 | :----: | :---: | :---: |
