@@ -31,7 +31,7 @@ Le fichier [run_pig.sh](./pig/run_pig.sh) permet de lancer le cluster qui va ex�
 
 Le fichier [dataproc.py](./pig/dataproc.py) est celui qui va exécuter le code pig afin de calculer le page rank. On réalise 3 itérations pour le calcul et il crée un fichier texte afin de sauvegarder le temps d'exécution dans le bucket. On récupérera ensuite cette ligne et on l'insérera à la fin de [time_results.txt](./pig/time_results.txt) pour avoir le temps d'éxécution de chacune des exécutions sur le projet. À la fin du calcul du page rank, on récupére les 5 premiers page rank dans le bucket que l'on va récupérer pour les mettre dans le projet dans le fichier [pig_top_page_rank.txt](./pig/pig_top_page_rank.txt).
 
-<a id="Tempsexec" style="color: black; ">>
+<a id="Tempsexec" style="color: black; ">
 
 ## Temps d'exécution </a>
 
